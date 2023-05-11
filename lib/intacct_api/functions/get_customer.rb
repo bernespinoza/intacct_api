@@ -10,7 +10,7 @@ module IntacctApi
 
     def build_xml
       @xml = build_xml do |xml|
-        xml.function(controlid: "f4") {
+        xml.function(controlid: control_id) {
           xml.get(object: "customer", key: "#{intacct_key}") {
             xml.fields {
               yield xml
