@@ -1,15 +1,15 @@
 module IntacctApi
   class Base
-    attr_reader :request_xml, :response, :xml, :intacct_object_name, :control_id
+    attr_reader :response, :xml, :intacct_object_name, :control_id
 
     def send_xml(xml=nil)
-      url = Intacct.service_url || "https://www.intacct.com/ia/xml/xmlgw.phtml"
-      uri = URI(url)
-      xml = xml || @xml
+      xml_doc = xml || @xml
 
-      response = Net::HTTP.post_form(uri, 'xmlrequest' => xml)
-
-      @response = Intacct::Response.new(request_xml, Nokogiri::XML(response.body))
+      @response = IntacctApi::Response.
+        new(
+          request_xml: xml_doc,
+          response_xml: call_intacct_api(xml_to_s(xml_doc))
+        )
     end
 
     private
@@ -18,13 +18,13 @@ module IntacctApi
         @request_xml = Nokogiri::XML::Builder.new do |xml|
           xml.request {
 
-            Builder::Control.new(xml_doc: xml).to_xml
+            IntacctApi::Control.new(xml_doc: xml).to_xml
 
-            Builder::Operation.new(xml_doc: xml).xml_block {
+            IntacctApi::Operation.new(xml_doc: xml).xml_block {
 
-              Builder::Authentication.new(xml_doc: xml).to_xml
+              IntacctApi::Authentication.new(xml_doc: xml).to_xml
 
-              Builder::Content.new(xml_doc: xml).xml_block {
+              IntacctApi::Content.new(xml_doc: xml).xml_block {
                 yield xml
               }
 
@@ -35,6 +35,23 @@ module IntacctApi
 
       def _control_id
         "#{intacct_object_name}_#{Time.now.to_i}"
+      end
+
+      def xml_to_s(xml)
+        xml.doc.root.to_xml
+      end
+
+    protected
+
+      def call_intacct_api(xml_string)
+        Net::HTTP.post_form(service_uri,
+          'xmlrequest' => xml_string
+        ).body
+      end
+
+      def service_uri
+        url = Intacct.service_url || "https://www.intacct.com/ia/xml/xmlgw.phtml"
+        URI(url)
       end
 
 

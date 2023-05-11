@@ -9,7 +9,7 @@ module IntacctApi
     end
 
     def build_xml
-      @xml = build_xml do |xml|
+      @xml = api_xml do |xml|
         xml.function(controlid: control_id) {
           xml.get(object: "customer", key: "#{intacct_key}") {
             xml.fields {
@@ -17,7 +17,7 @@ module IntacctApi
             }
           }
         }
-      end.doc.root.to_xml
+      end
     end
   end
 end

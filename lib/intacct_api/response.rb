@@ -4,7 +4,7 @@ module IntacctApi
 
     def initialize(request_xml:, response_xml:)
       @request_xml = request_xml
-      @response_xml = response_xml
+      @response_xml = Nokogiri::XML(response_xml)
     end
 
   end

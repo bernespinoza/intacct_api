@@ -8,7 +8,7 @@ module IntacctApi
     end
 
     def xml_block
-      xml_doc.function(control_id: control_id){
+      xml_doc.function(controlid: control_id){
         yield xml_doc
       }
     end
