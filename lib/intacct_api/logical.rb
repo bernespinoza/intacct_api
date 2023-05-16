@@ -5,27 +5,22 @@ module IntacctApi
       and: 'and'
     }
 
-    def initialize(operator:, expresions: [])
-      @operator = Operators[operator]
-      @expresions = expresions
-      @logicals = []
+    attr_reader :operator, :xml_doc, :expressions, :logicals
+
+    def initialize(operator:, xml_doc:,  expressions: [])
+      @operator = Operators[operator.to_sym]
+      @expressions = expressions
+      @xml_doc = xml_doc
     end
 
-    def add_expresion(expresion)
-      expresions << expresion
-    end
-
-    def add_logical(logical)
-      logicals << logical
+    def add_expression(expression)
+      @expressions << expression
     end
 
     def build_xml
       xml_doc.logical(logical_operator: operator) do
-        logicals.each do |logical|
-          logical.build_xml
-        end
-        expresions.each do |expresion|
-          expresion.build_xml
+        expressions.each do |expression|
+          expression.build_xml
         end
       end
     end

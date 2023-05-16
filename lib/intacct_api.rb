@@ -10,6 +10,10 @@ require_relative 'intacct_api/content'
 require_relative 'intacct_api/function'
 require_relative 'intacct_api/functions/get_customer'
 require_relative 'intacct_api/functions/create_vendor'
+require_relative 'intacct_api/expression'
+require_relative 'intacct_api/logical'
+require_relative 'intacct_api/filter'
+require_relative 'intacct_api/functions/get_list.rb'
 
 module IntacctApi
   extend self

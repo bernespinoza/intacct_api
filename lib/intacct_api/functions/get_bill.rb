@@ -9,11 +9,11 @@ module IntacctApi
     end
 
     def build_xml
-      @xml = api_xml do |xml|
-        IntacctApi::Function.new(xml_doc: xml, control_id: control_id).xml_block {
-          xml.get(object: intacct_object_name, key: intacct_key) {
-            xml.fields {
-              yield xml
+      @xml = api_xml do |xml_doc|
+        IntacctApi::Function.new(xml_doc: xml_doc, control_id: control_id).xml_block {
+          xml_doc.get(object: intacct_object_name, key: intacct_key) {
+            xml_doc.fields {
+              yield xml_doc
             }
           }
         }
