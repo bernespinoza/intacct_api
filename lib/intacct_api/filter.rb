@@ -19,5 +19,6 @@ module IntacctApi
         end
       end
     end
+
   end
 end

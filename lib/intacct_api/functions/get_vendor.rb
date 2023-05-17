@@ -1,19 +1,21 @@
 module IntacctApi
   class GetVendor < Base
-    attr_reader :intacct_key
+    attr_reader :intacct_key, :fields, :intacct_object_name
 
     def initialize(intacct_key: nil)
       @intacct_key = intacct_key
-      @intacct_object_name = 'vendor'.freeze.freeze
-      @control_id = _control_id
+      @intacct_object_name = 'vendor'.freeze
     end
 
     def build_xml
       @xml = api_xml do |xml|
-        IntacctApi::Function.new(xml_doc: xml, control_id: control_id).xml_block {
-          xml.get(object: intacct_object_name, key: intacct_key) {
+        IntacctApi::Function.new(xml_doc: xml, control_id: _control_id).xml_block {
+          IntacctApi::Get.new(xml_doc: xml_doc, intacct_key: intacct_key,
+            intacct_object: intacct_object_name).xml_block {
             xml.fields {
-              yield xml
+              fields.each_pair do |field, value|
+                xml_doc.send(field, value)
+              end
             }
           }
         }

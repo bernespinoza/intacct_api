@@ -9,7 +9,7 @@ module IntacctApi
 
     def initialize(operator:, xml_doc:,  expressions: [])
       @operator = Operators[operator.to_sym]
-      @expressions = expressions
+      @expressions = expressions.to_a
       @xml_doc = xml_doc
     end
 
@@ -24,7 +24,6 @@ module IntacctApi
         end
       end
     end
-
 
   end
 end

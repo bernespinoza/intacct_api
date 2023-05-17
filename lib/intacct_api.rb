@@ -14,6 +14,7 @@ require_relative 'intacct_api/expression'
 require_relative 'intacct_api/logical'
 require_relative 'intacct_api/filter'
 require_relative 'intacct_api/functions/get_list.rb'
+require_relative 'intacct_api/functions/get_bill_list.rb'
 
 module IntacctApi
   extend self
