@@ -1,5 +1,5 @@
 module IntacctApi
-  class GetBillList < Base
+  class GetInvoiceList < Base
     attr_reader :limit, :get_list, :filters, :sorts, :intacct_object_name
 
     def initialize(limit: 10)
@@ -7,7 +7,7 @@ module IntacctApi
       @filters = {}
       @sorts = {}
       @get_list = IntacctApi::GetList
-      @intacct_object_name = 'bill'.freeze
+      @intacct_object_name = 'invoice'.freeze
     end
 
     def add_filter(field:, operator:, value:, group: nil)

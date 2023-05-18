@@ -5,7 +5,7 @@ module IntacctApi
     def initialize(intacct_key: nil, fields:)
       @intacct_key = intacct_key
       @intacct_object_name = 'bill'.freeze
-      @fields = fields.to_h
+      @fields = fields.to_a
     end
 
     def build_xml
@@ -14,8 +14,8 @@ module IntacctApi
           IntacctApi::Get.new(xml_doc: xml_doc, intacct_key: intacct_key,
             intacct_object: intacct_object_name).xml_block {
             xml_doc.fields {
-              fields.each_pair do |field, value|
-                xml_doc.send(field, value)
+              fields.each do |field|
+                xml_doc.field field
               end
             }
           }
