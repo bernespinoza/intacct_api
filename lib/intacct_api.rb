@@ -20,6 +20,7 @@ require_relative 'intacct_api/functions/get_bill'
 require_relative 'intacct_api/functions/get_invoice'
 require_relative 'intacct_api/functions/get_vendor'
 require_relative 'intacct_api/functions/create_vendor'
+require_relative 'intacct_api/functions/create_customer'
 
 
 module IntacctApi

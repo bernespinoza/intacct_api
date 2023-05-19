@@ -38,7 +38,7 @@ module IntacctApi
       end
 
       def xml_to_s(xml)
-        xml.doc.root.to_xml
+        xml.to_xml
       end
 
     protected
