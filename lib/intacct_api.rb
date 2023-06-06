@@ -12,6 +12,7 @@ require_relative 'intacct_api/expression'
 require_relative 'intacct_api/logical'
 require_relative 'intacct_api/filter'
 require_relative 'intacct_api/get'
+require_relative 'intacct_api/bill'
 require_relative 'intacct_api/functions/get_list.rb'
 require_relative 'intacct_api/functions/get_bill_list.rb'
 require_relative 'intacct_api/functions/get_invoice_list.rb'
@@ -21,6 +22,7 @@ require_relative 'intacct_api/functions/get_invoice'
 require_relative 'intacct_api/functions/get_vendor'
 require_relative 'intacct_api/functions/create_vendor'
 require_relative 'intacct_api/functions/create_customer'
+require_relative 'intacct_api/functions/create_bill'
 
 
 module IntacctApi
